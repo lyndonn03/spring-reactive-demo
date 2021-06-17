@@ -1,0 +1,32 @@
+version: "3.1"
+
+services: 
+    spring:
+        image: maven:3.8.1-jdk-11
+        working_dir: /usr/src/spring
+        volumes:
+            - ./:/usr/src/spring
+            - maven-repo:/root/.m2
+        command: mvn spring-boot:run
+        ports:
+            - 8080:8080
+        depends_on: 
+            - db
+        environment:    
+            SPRING_DATA_MONGODB_HOST: db
+            SPRING_DATA_MONGODB_USERNAME: user
+            SPRING_DATA_MONGODB_PASSWORD: user
+            SPRING_DATA_MONGODB_POST: 27017
+            SPRING_DATA_MONGODB_AUTHENTICATIONDATABASE: admin
+
+    db:
+        image: mongo
+        restart: always
+        environment: 
+            MONGO_INITDB_ROOT_USERNAME: user
+            MONGO_INITDB_ROOT_PASSWORD: user
+            MONGO_INITDB_DATABASE: spring
+
+
+volumes:
+    maven-repo:

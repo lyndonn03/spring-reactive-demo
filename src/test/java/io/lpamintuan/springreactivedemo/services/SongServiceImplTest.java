@@ -50,10 +50,10 @@ public class SongServiceImplTest {
     @Test
     public void getSong_ThrowsEntityNotFoundException_ifSongWithIdVariableNotFound() {
         UUID id = UUID.randomUUID();
-        Mockito.when(songRepository.findById(any(UUID.class)))
+        Mockito.when(songRepository.findById(any(String.class)))
             .thenReturn(Mono.empty());
             
-        Mono<Song> expectedResult = songService.getSong(id);
+        Mono<Song> expectedResult = songService.getSong(id.toString());
         
         StepVerifier.create(expectedResult)
             .expectErrorMessage(String.format(SongServiceImpl.ERROR_MESSAGE, id.toString()))

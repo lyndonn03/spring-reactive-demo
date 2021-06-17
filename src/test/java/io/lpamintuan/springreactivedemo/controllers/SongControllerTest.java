@@ -59,14 +59,14 @@ public class SongControllerTest {
         
         UUID id = UUID.randomUUID();
 
-        Mono<Song> expectedResult = Mono.just(new Song(id, "Test Song #1"));
-        Mockito.when(songService.getSong(any(UUID.class))).thenReturn(expectedResult);
+        Mono<Song> expectedResult = Mono.just(new Song(id.toString(), "Test Song #1"));
+        Mockito.when(songService.getSong(any(String.class))).thenReturn(expectedResult);
 
         testClient.get().uri("/songs/" + id)
             .exchange()
             .expectStatus().isOk()
             .expectBody(Song.class)
-                .isEqualTo(new Song(id, "Test Song #1"));
+                .isEqualTo(new Song(id.toString(), "Test Song #1"));
 
     }
 
@@ -74,7 +74,7 @@ public class SongControllerTest {
     public void getSong_Throws404NotFound_ifThereIsNoSongsWithIdVariable() {
         UUID id = UUID.randomUUID();
 
-        Mockito.when(songService.getSong(any(UUID.class))).thenReturn(
+        Mockito.when(songService.getSong(any(String.class))).thenReturn(
             Mono.error(EntityNotFoundException.getInstance(id.toString(), SongServiceImpl.ERROR_MESSAGE))
         );
 

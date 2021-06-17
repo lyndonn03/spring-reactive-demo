@@ -2,14 +2,12 @@ package io.lpamintuan.springreactivedemo.repositories;
 
 import java.util.UUID;
 
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.stereotype.Repository;
+
 import io.lpamintuan.springreactivedemo.models.Song;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-public interface SongRepository {
+@Repository
+public interface SongRepository extends ReactiveCrudRepository<Song, String> {
 
-    Flux<Song> findAll();
-
-    Mono<Song> findById(UUID any);
-    
 }

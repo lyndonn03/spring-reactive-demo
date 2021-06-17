@@ -25,8 +25,8 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Mono<Song> getSong(UUID songId) {
-        return Mono.just(songId)
+    public Mono<Song> getSong(String songId) {
+        return Mono.just(songId.toString())
                 .flatMap(songRepository::findById)
                 .switchIfEmpty(
                     Mono.error(EntityNotFoundException.getInstance(songId.toString(), SongServiceImpl.ERROR_MESSAGE))

@@ -10,6 +10,6 @@ public interface SongService {
 
     public Flux<Song> getAllSongs();
 
-    public Mono<Song> getSong(UUID songId);
+    public Mono<Song> getSong(String songId);
     
 }

@@ -2,6 +2,9 @@ package io.lpamintuan.springreactivedemo.models;
 
 import java.util.UUID;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +12,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Document
 public class Song {
-    
-    private UUID id;
+
+    @Id
+    private String id;
+
     private String name;
+
+    public Song(String name) {
+        this.name = name;
+    }
 
 }
